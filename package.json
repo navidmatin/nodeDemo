@@ -1,0 +1,20 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "Some todo list",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.2.46",
+    "ejs": "^2.4.1",
+    "ejs-locals": "^1.0.2",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "mfb": "^0.12.0"
+  }
+}

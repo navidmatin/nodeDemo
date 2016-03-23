@@ -1,0 +1,87 @@
+    <% title = 'Todos' %>
+    <% layout('./shared/layout') -%>
+    <div class="container">
+        <% if(todos.length===0){ %>
+            <p>Everything is Done!!! Good Job!</p>
+        <%}%>
+        <div class="card-columns">
+        <% for(var i=0;i<todos.length;i++){%>
+            <div class="card card-inverse card-primary text-xs-center">
+              <div class="card-block">
+                <blockquote class="card-blockquote">
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                  <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                </blockquote>
+              </div>
+            </div>
+        <%}%>
+        </div>
+        <br/>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Add a new task
+    </button>
+    </div>
+
+<div class="modal info" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">New Todo:</h4>
+      </div>
+      <div class="modal-body">
+            <div class="card row">
+                <div class="span5 col-md-5" id="dueDate">
+                    <div id="datePicker"></div>
+                </div>
+                <br/>
+                <div class="col-md-7">
+                    <textarea class="form-control" id="newTask" rows="3" style="width:65%"></textarea>
+                </div>
+
+            </div>
+
+
+
+            <ul id="menu" class="mfb-component--br mfb-zoomin" data-mfb-toggle="hover">
+          <li class="mfb-component__wrap">
+            <a href="#" class="mfb-component__button--main">
+                
+              <i class="mfb-component__main-icon--resting"><span class="fa fa-plus"></span></i>
+              <i class="mfb-component__main-icon--active"><span class="fa fa-minus"></span></i>
+            </a>
+            <ul class="mfb-component__list">
+              <li>
+                <a href="#" data-mfb-label="Add As Task" class="mfb-component__button--child" data-toggle="modal" data-target="#myModal">
+                  <i class="mfb-component__child-icon"><span class="fa fa-tasks"></span></i>
+                </a>
+              </li>
+              <li>
+                <a href="#" data-mfb-label="Add As Reminder" class="mfb-component__button--child">
+                    
+                  <i class="mfb-component__child-icon "><span class="fa fa-pencil"></span></i>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+
+      </div>
+    
+    </div>
+
+  </div>
+</div>
+<script src="/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function(){
+        $('#datePicker').datepicker({
+            maxViewMode: 1,
+            todayBtn: true
+        });
+    })
+
+</script>
