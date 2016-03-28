@@ -4,13 +4,14 @@
         <% if(todos.length===0){ %>
             <p>Everything is Done!!! Good Job!</p>
         <%}%>
+        <hr/>
         <div class="card-columns">
         <% for(var i=0;i<todos.length;i++){%>
-            <div class="card card-inverse card-primary text-xs-center">
+            <div class="card card-inverse text-xs-center" style="background-color:<%=todos[i].color%>;border-color:<%=todos[i].color%>">
               <div class="card-block">
                 <blockquote class="card-blockquote">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                  <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                  <p><%=todos[i].text%></p>
+                  <footer>Due Date:<%=todos[i].dueDate%></footer>
                 </blockquote>
               </div>
             </div>
@@ -105,12 +106,16 @@
                 color: color
             }
             $.ajax({
-                method: "POST",
-                data: data,
-                dataType: "json"
-            }).success(function(result){
-                $('#newTask').val("");
-            })
+                type: "POST",               
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                success:function(result){
+                if(result==="OK")
+                    {
+                        location.reload();
+                    }
+            }
+            });
         });
     })
 

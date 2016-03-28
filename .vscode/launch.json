@@ -1,0 +1,32 @@
+{
+	"version": "0.9.0",
+	"configurations": [
+        {
+            "name": "Launch",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/app.js",
+            "stopOnEntry": false,
+            "args": [],
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": null,
+            "runtimeArgs": [
+                "--nolazy"
+            ],
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "externalConsole": false,
+            "preLaunchTask": "",
+            "sourceMaps": false,
+            "outDir": null
+        },
+		{
+			"name": "Attach",
+			"type": "node",
+			"request": "attach",
+			"port": 4000,
+            "address": "localhost"
+		}
+	]
+}
