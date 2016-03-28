@@ -54,14 +54,14 @@
             </a>
             <ul class="mfb-component__list">
               <li>
-                <a href="#" data-mfb-label="Add As Task" class="mfb-component__button--child" data-toggle="modal" data-target="#myModal">
-                  <i class="mfb-component__child-icon"><span class="fa fa-tasks"></span></i>
+                <a href="#" data-mfb-label="Add As Task" data-type="task" class="mfb-component__button--child add" data-dismiss="modal" aria-label="Close" style="background-color:#0A61E4">
+                  <i class="mfb-component__child-icon" ><span class="fa fa-tasks"></span></i>
                 </a>
               </li>
               <li>
-                <a href="#" data-mfb-label="Add As Reminder" class="mfb-component__button--child">
+                <a href="#" data-mfb-label="Add As Reminder" data-type="reminder" class="mfb-component__button--child add" data-dismiss="modal" aria-label="Close" style="background-color:#5EE40A">
                     
-                  <i class="mfb-component__child-icon "><span class="fa fa-pencil"></span></i>
+                  <i class="mfb-component__child-icon " ><span class="fa fa-pencil"></span></i>
                 </a>
               </li>
             </ul>
@@ -81,6 +81,36 @@
         $('#datePicker').datepicker({
             maxViewMode: 1,
             todayBtn: true
+        });
+        
+        $('.add').click(function(){
+            
+            var type = $(this).data().type;
+            var color = null;
+            switch(type){
+                case "task": 
+                        {
+                            color = "#0A61E4";
+                        }
+                        break;
+                case "reminder":
+                        {
+                            color = "#5EE40A";
+                        }
+                        break;
+            }
+            var data ={
+                taskText:$('#newTask').val(),
+                date:$('#datePicker').data().datepicker.viewDate,
+                color: color
+            }
+            $.ajax({
+                method: "POST",
+                data: data,
+                dataType: "json"
+            }).success(function(result){
+                $('#newTask').val("");
+            })
         });
     })
 

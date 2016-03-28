@@ -6,19 +6,21 @@ AWS.config.update({accessKeyId: 'test', secretAccessKey: 'secret'});
 AWS.config.endpoint = 'http://localhost:8000';
 
 var dynamodb = new AWS.DynamoDB();
+var docClient = new AWS.DynamoDB.DocumentClient();
 
 var todoDal = function(){
     var tableName = "Todo";
     //Construction
     checkForTable(function(doesExist){
+        console.log(doesExist);
         if(!doesExist)
         {
             console.log("Table doesn't exists....Creating a new table");
-            createTodoTable("Todo");
+            createTodoTable();
         }
     });
-    //End of Construction
     
+    //End of Construction    
     function createTodoTable()
     {
         var params = {
@@ -29,7 +31,7 @@ var todoDal = function(){
             ],
             AttributeDefinitions: [       
                 { AttributeName: "Text", AttributeType: "S" },
-                { AttributeName: "DueDate", AttributeType: "N" }
+                { AttributeName: "DueDate", AttributeType: "S" }
             ],
             //Used for cloud and not local DynamoDb
             ProvisionedThroughput: {       
@@ -54,9 +56,10 @@ var todoDal = function(){
             console.log(JSON.stringify(err,null,2));
            else
             {
-                for(var i=0; i<data.length;i++)
+                console.log(data);
+                for(var i=0; i<data.TableNames.length;i++)
                 {
-                    if(data[i] === tableName)
+                    if(data.TableNames[i] === tableName)
                     {
                         callbackFunction(true);
                         return true;
@@ -90,7 +93,7 @@ var todoDal = function(){
         });
     }
     
-    var addTodo = function(todoText, deadline, color)
+    var addTodo = function(todoText, deadline, color, callback)
     {
         var params = {
             TableName: tableName,
@@ -101,11 +104,18 @@ var todoDal = function(){
             }
         };
         
-        dynamodb.put(params, function(err,data){
+        docClient.put(params, function(err,data){
         if (err)
-            console.log(JSON.stringify(err, null, 2));
+            {
+                console.log(JSON.stringify(err, null, 2));
+                callback(err,null);
+            }
         else
-            console.log(JSON.stringify(data, null, 2));
+            {
+                console.log(JSON.stringify(data, null, 2));
+                callback(null, data);
+            }
+
         })
         
         

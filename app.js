@@ -3,8 +3,11 @@ var port = 4000;
 var express = require('express');
 var templateEngine = require('ejs-locals');
 var session = require('express-session');
+var bodyParser = require('body-parser');
 
 var app = express();
+
+app.use(bodyParser.json());
 
 app.use(express.static('public'));
 
@@ -25,9 +28,9 @@ app.get('/', function(req, res){
 //Routers
 var todoRouter = require('./src/routes/todoRoute')(nav);
 
-app.use('/todoList', todoRouter);
+app.use('/todoList', todoRouter );
 
 app.listen(port, function(err){
-    console.log('running server on port:' + port);
-})
+   console.log('running server on port:' + port);
+});
 
