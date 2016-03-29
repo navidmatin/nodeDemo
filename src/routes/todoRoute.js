@@ -7,8 +7,8 @@ var router = function(nav) {
     todoRouter.route('/')
         .get(todoController.getAll)
         .post(todoController.createItem);
-    todoRouter.route('/:id').get(todoController.getItem);
-
+    todoRouter.route('/delete')
+        .post(todoController.removeItem);
     return todoRouter;
 }
 

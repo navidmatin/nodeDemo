@@ -9,7 +9,7 @@ var todoController = function (nav) {
                 todos.push({
                     color: result.Items[i].color.S,
                     text: result.Items[i].Text.S,
-                    dueDate: moment(result.Items[i].DueDate.S).format('DD-MM-YYYY')
+                    dueDate: result.Items[i].DueDate.S
                 })
             }
             res.render('todoList', {
@@ -27,7 +27,8 @@ var todoController = function (nav) {
         console.log("Creating new Item:" + req.body.taskText);
         var taskText = req.body.taskText;
         var color = req.body.color;
-        var date = req.body.date;
+        var date = moment(req.body.date.toString()).format('DD-MM-YYYY');
+        
         dal.addTodo(taskText, date, color, function (err, result) {
             console.log("Adding '" + taskText + "' to the tasks!");
             if (err) {
@@ -43,6 +44,16 @@ var todoController = function (nav) {
     };
 
     var removeItem = function (req, res) {
+        
+        var task = req.body.text;
+        var date = req.body.date;
+        console.log("removing item with:" + task + " and due date:" + date);
+        dal.deleteTodo(task, date, function (err, data) {
+            if (err)
+                res.send("FAILED");
+            else
+                res.send("OK");
+        });
 
     };
 
